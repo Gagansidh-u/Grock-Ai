@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Generate YouTube video titles, descriptions, hashtags, and keywords with Grock AI. Perfect for content creators looking to optimize their YouTube strategy.">
+    <meta name="keywords" content="youtube generator, content creation, video titles, description generator, hashtag generator, grock ai">
+    <title>Grock AI - YouTube & Shorts Content Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6a45e1;
+            --primary-dark: #5538c3;
+            --secondary: #ff6b6b;
+            --accent: #4dccc6;
+            --dark: #1a1a2e;
+            --darker: #0d0d19;
+            --light: #f8f9fa;
+            --light-gray: #e2e2e2;
+            --medium-gray: #6c757d;
+            --success: #28a745;
+            --warning: #ffc107;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: var(--light);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0 40px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .logo-icon {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            width: 60px;
+            height: 60px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 8px 20px rgba(106, 69, 225, 0.3);
+        }
+        
+        .logo h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            color: #a0a0c0;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 1100px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                max-width: 800px;
+                margin: 0 auto 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .logo h1 {
+                font-size: 2.2rem;
+            }
+            .tagline {
+                font-size: 1rem;
+            }
+        }
+        
+        .input-section, .output-section {
+            background: rgba(30, 30, 50, 0.7);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(106, 69, 225, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            color: var(--accent);
+        }
+        
+        .section-title i {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #b0b0d0;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(106, 69, 225, 0.4);
+            background: rgba(20, 20, 40, 0.7);
+            color: var(--light);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(106, 69, 225, 0.2);
+        }
+        
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .generate-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 8px 20px rgba(106, 69, 225, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .generate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(106, 69, 225, 0.5);
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        }
+        
+        .generate-btn:active {
+            transform: translateY(0);
+        }
+        
+        .output-area {
+            background: rgba(20, 20, 40, 0.7);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 15px;
+            border: 1px solid rgba(106, 69, 225, 0.2);
+        }
+        
+        .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .output-title {
+            font-weight: 600;
+            color: var(--accent);
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .copy-btn {
+            background: rgba(77, 204, 198, 0.15);
+            color: var(--accent);
+            border: none;
+            border-radius: 8px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(77, 204, 198, 0.25);
+        }
+        
+        .output-content {
+            background: rgba(30, 30, 50, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            min-height: 60px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        
+        .hashtags-container, .keywords-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .hashtag, .keyword {
+            background: rgba(77, 204, 198, 0.15);
+            color: var(--accent);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+        
+        .hashtag.selected, .keyword.selected {
+            background: rgba(77, 204, 198, 0.4);
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+        
+        .keyword {
+            background: rgba(106, 69, 225, 0.15);
+            color: var(--primary);
+        }
+        
+        .keyword.selected {
+            background: rgba(106, 69, 225, 0.4);
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .stat-card {
+            background: rgba(30, 30, 50, 0.7);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid rgba(106, 69, 225, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 10px 0;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .stat-label {
+            color: #a0a0c0;
+            font-size: 1.1rem;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 12px 25px;
+            border-radius: 10px;
+            background: rgba(30, 30, 50, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            flex: 1;
+            text-align: center;
+        }
+        
+        .tab.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .action-btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            background: rgba(40, 40, 60, 0.7);
+            color: var(--light);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+        
+        .action-btn:hover {
+            background: rgba(50, 50, 80, 0.9);
+        }
+        
+        .action-btn.copy {
+            background: rgba(77, 204, 198, 0.15);
+            color: var(--accent);
+        }
+        
+        .action-btn.download {
+            background: rgba(106, 69, 225, 0.15);
+            color: var(--primary);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            color: #a0a0c0;
+            font-size: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 40px;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateX(200%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .placeholder {
+            color: #8a8aaf;
+            font-style: italic;
+        }
+        
+        .selection-info {
+            font-size: 0.9rem;
+            color: var(--accent);
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .select-all-btn {
+            background: rgba(106, 69, 225, 0.15);
+            color: var(--primary);
+            border: none;
+            border-radius: 6px;
+            padding: 5px 10px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .select-all-btn:hover {
+            background: rgba(106, 69, 225, 0.25);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 576px) {
+            body {
+                padding: 10px;
+            }
+            .input-section, .output-section {
+                padding: 20px;
+            }
+            .section-title {
+                font-size: 1.4rem;
+            }
+            .stat-card {
+                padding: 15px;
+            }
+            .stat-value {
+                font-size: 2rem;
+            }
+            .tab {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h1>Grock AI</h1>
+            </div>
+            <p class="tagline">Advanced YouTube & Shorts Content Generator - Create compelling titles, descriptions, hashtags and SEO keywords with AI</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="input-section">
+                <h2 class="section-title"><i class="fas fa-cogs"></i> Generator Settings</h2>
+                
+                <div class="form-group">
+                    <label for="topic"><i class="fas fa-lightbulb"></i> Video Topic/Keyword</label>
+                    <input type="text" id="topic" placeholder="Enter your video topic (e.g., 'How to bake a cake', 'Tech review')">
+                </div>
+                
+                <div class="form-group">
+                    <label for="tone"><i class="fas fa-comment-dots"></i> Content Tone</label>
+                    <select id="tone">
+                        <option value="engaging">Engaging & Exciting</option>
+                        <option value="professional">Professional</option>
+                        <option value="funny">Funny & Entertaining</option>
+                        <option value="educational">Educational</option>
+                        <option value="inspirational">Inspirational</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="details"><i class="fas fa-info-circle"></i> Additional Details</label>
+                    <textarea id="details" placeholder="Any specific details, keywords, or instructions..."></textarea>
+                </div>
+                
+                <button class="generate-btn" id="generateBtn">
+                    <i class="fas fa-magic"></i> Generate YouTube Content
+                </button>
+            </div>
+            
+            <div class="output-section">
+                <h2 class="section-title"><i class="fas fa-file-alt"></i> Generated Content</h2>
+                
+                <div class="tabs">
+                    <div class="tab active" data-tab="video">Video Content</div>
+                    <div class="tab" data-tab="shorts">Shorts Content</div>
+                </div>
+                
+                <div class="tab-content active" id="videoContent">
+                    <div class="output-area">
+                        <div class="output-header">
+                            <div class="output-title"><i class="fas fa-heading"></i> Video Title</div>
+                            <button class="copy-btn" data-copy="videoTitle">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <div class="output-content" id="videoTitle">
+                            <span class="placeholder">Enter your topic and click Generate</span>
+                        </div>
+                        
+                        <div class="output-header">
+                            <div class="output-title"><i class="fas fa-align-left"></i> Video Description</div>
+                            <button class="copy-btn" data-copy="videoDescription">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <div class="output-content" id="videoDescription">
+                            <span class="placeholder">Your generated description will appear here</span>
+                        </div>
+                        
+                        <div class="output-header">
+                            <div class="output-title"><i class="fas fa-tags"></i> Hashtags</div>
+                            <button class="copy-btn" id="copyVideoHashtags">
+                                <i class="fas fa-copy"></i> Copy Selected
+                            </button>
+                        </div>
+                        <div class="output-content">
+                            <div class="hashtags-container" id="videoHashtags">
+                                <span class="placeholder">#hashtags #will #appear #here</span>
+                            </div>
+                            <div class="selection-info" id="videoHashtagsInfo">
+                                Select at least 1 hashtag to copy
+                            </div>
+                            <button class="select-all-btn" data-target="videoHashtags">Select All</button>
+                        </div>
+                        
+                        <div class="output-header">
+                            <div class="output-title"><i class="fas fa-key"></i> Keywords</div>
+                            <button class="copy-btn" id="copyVideoKeywords">
+                                <i class="fas fa-copy"></i> Copy Selected
+                            </button>
+                        </div>
+                        <div class="output-content">
+                            <div class="keywords-container" id="videoKeywords">
+                                <span class="placeholder">Keywords will appear here</span>
+                            </div>
+                            <div class="selection-info" id="videoKeywordsInfo">
+                                Select at least 1 keyword to copy
+                            </div>
+                            <button class="select-all-btn" data-target="videoKeywords">Select All</button>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="action-btn copy" onclick="copyAllContent('video')">
+                            <i class="fas fa-copy"></i> Copy All Video Content
+                        </button>
+                        <button class="action-btn download" onclick="downloadContent('video')">
+                            <i class="fas fa-download"></i> Export as TXT
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="shortsContent">
+                    <div class="output-area">
+                        <div class="output-header">
+                            <div class="output-title"><i class="fas fa-heading"></i> Shorts Title</div>
+                            <button class="copy-btn" data-copy="shortsTitle">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <div class="output-content" id="shortsTitle">
+                            <span class="placeholder">Enter your topic and click Generate</span>
+                        </div>
+                        
+                        <div class="output-header">
+                            <div class="output-title"><i class="fas fa-align-left"></i> Shorts Description</div>
+                            <button class="copy-btn" data-copy="shortsDescription">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <div class="output-content" id="shortsDescription">
+                            <span class="placeholder">Your generated description will appear here</span>
+                        </div>
+                        
+                        <div class="output-header">
+                            <div class="output-title"><i class="fas fa-tags"></i> Hashtags</div>
+                            <button class="copy-btn" id="copyShortsHashtags">
+                                <i class="fas fa-copy"></i> Copy Selected
+                            </button>
+                        </div>
+                        <div class="output-content">
+                            <div class="hashtags-container" id="shortsHashtags">
+                                <span class="placeholder">#hashtags #will #appear #here</span>
+                            </div>
+                            <div class="selection-info" id="shortsHashtagsInfo">
+                                Select at least 1 hashtag to copy
+                            </div>
+                            <button class="select-all-btn" data-target="shortsHashtags">Select All</button>
+                        </div>
+                        
+                        <div class="output-header">
+                            <div class="output-title"><i class="fas fa-key"></i> Keywords</div>
+                            <button class="copy-btn" id="copyShortsKeywords">
+                                <i class="fas fa-copy"></i> Copy Selected
+                            </button>
+                        </div>
+                        <div class="output-content">
+                            <div class="keywords-container" id="shortsKeywords">
+                                <span class="placeholder">Keywords will appear here</span>
+                            </div>
+                            <div class="selection-info" id="shortsKeywordsInfo">
+                                Select at least 1 keyword to copy
+                            </div>
+                            <button class="select-all-btn" data-target="shortsKeywords">Select All</button>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="action-btn copy" onclick="copyAllContent('shorts')">
+                            <i class="fas fa-copy"></i> Copy All Shorts Content
+                        </button>
+                        <button class="action-btn download" onclick="downloadContent('shorts')">
+                            <i class="fas fa-download"></i> Export as TXT
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <i class="fas fa-bolt" style="font-size: 36px; color: var(--accent);"></i>
+                <div class="stat-value">3.2s</div>
+                <div class="stat-label">Average Generation Time</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-users" style="font-size: 36px; color: var(--primary);"></i>
+                <div class="stat-value">14.7K</div>
+                <div class="stat-label">Content Creators Using Grock</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-chart-line" style="font-size: 36px; color: var(--secondary);"></i>
+                <div class="stat-value">87%</div>
+                <div class="stat-label">Reported Engagement Increase</div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 Grock AI - grock.fun | Advanced YouTube Content Generation Tool</p>
+            <p>All content generated by our proprietary AI technology designed specifically for YouTube creators</p>
+        </footer>
+    </div>
+    
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span>Content copied to clipboard!</span>
+    </div>
+    
+    <script>
+        // Tab switching functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and content
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Show corresponding content
+                const tabName = tab.getAttribute('data-tab');
+                document.getElementById(`${tabName}Content`).classList.add('active');
+            });
+        });
+        
+        // Generate button functionality
+        document.getElementById('generateBtn').addEventListener('click', function() {
+            const topic = document.getElementById('topic').value.trim();
+            const tone = document.getElementById('tone').value;
+            const details = document.getElementById('details').value.trim();
+            
+            if (!topic) {
+                showNotification('Please enter a video topic');
+                return;
+            }
+            
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+            this.disabled = true;
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                // Generate content based on user input
+                const videoContent = generateVideoContent(topic, tone, details);
+                const shortsContent = generateShortsContent(topic, tone, details);
+                
+                // Update video content
+                document.getElementById('videoTitle').innerHTML = videoContent.title;
+                document.getElementById('videoDescription').innerHTML = videoContent.description;
+                document.getElementById('videoHashtags').innerHTML = videoContent.hashtags;
+                document.getElementById('videoKeywords').innerHTML = videoContent.keywords;
+                
+                // Update shorts content
+                document.getElementById('shortsTitle').innerHTML = shortsContent.title;
+                document.getElementById('shortsDescription').innerHTML = shortsContent.description;
+                document.getElementById('shortsHashtags').innerHTML = shortsContent.hashtags;
+                document.getElementById('shortsKeywords').innerHTML = shortsContent.keywords;
+                
+                this.innerHTML = '<i class="fas fa-magic"></i> Generate YouTube Content';
+                this.disabled = false;
+                
+                // Show notification
+                showNotification('Content generated successfully!');
+                
+                // Initialize selection functionality
+                initSelection();
+            }, 1500);
+        });
+        
+        // Generate video content
+        function generateVideoContent(topic, tone, details) {
+            const tones = {
+                engaging: {adj: "Engaging", emoji: "🚀"},
+                professional: {adj: "Professional", emoji: "👔"},
+                funny: {adj: "Hilarious", emoji: "😂"},
+                educational: {adj: "Educational", emoji: "🎓"},
+                inspirational: {adj: "Inspirational", emoji: "✨"}
+            };
+            
+            const toneInfo = tones[tone] || tones.engaging;
+            
+            // Generate title
+            const titles = [
+                `${toneInfo.emoji} Ultimate Guide to ${topic} - You NEED to Know This!`,
+                `${toneInfo.adj} ${topic} Tutorial: Master It Today`,
+                `The ${topic} Revolution: What They're Not Telling You`,
+                `How I Mastered ${topic} - Step by Step Guide`,
+                `${topic} Secrets Revealed: ${toneInfo.adj} Insights`
+            ];
+            
+            const title = titles[Math.floor(Math.random() * titles.length)];
+            
+            // Generate description
+            const description = `🔥 Welcome to our ${toneInfo.adj.toLowerCase()} guide on ${topic}! In this video, we'll dive deep into everything you need to know to become an expert.\n\n🔍 What you'll learn:\n- The fundamentals of ${topic}\n- Advanced techniques you won't find elsewhere\n- Practical tips for immediate results\n- Common mistakes to avoid\n\n👉 Whether you're a beginner or looking to enhance your skills, this video has something for you. Don't forget to like and subscribe for more content like this!\n\n${details ? `\n📌 Additional Notes: ${details}\n` : ''}\n#${topic.replace(/\s+/g, '')} #Learn${topic.replace(/\s+/g, '')} #${toneInfo.adj}Guide #YouTubeTips`;
+            
+            // Generate hashtags
+            const hashtags = [
+                `#${topic.replace(/\s+/g, '')}`,
+                `#${toneInfo.adj}Guide`,
+                "#YouTubeTips",
+                "#ContentCreation",
+                "#LearnSomethingNew",
+                "#GrockAI",
+                "#VideoMarketing",
+                "#ExpertTips"
+            ];
+            
+            const hashtagsHTML = hashtags.map(tag => `<span class="hashtag">${tag}</span>`).join('');
+            
+            // Generate keywords
+            const keywords = [
+                topic,
+                `${topic} tutorial`,
+                `how to ${topic}`,
+                `${toneInfo.adj.toLowerCase()} ${topic} guide`,
+                "YouTube content creation",
+                "Grock AI"
+            ];
+            
+            const keywordsHTML = keywords.map(kw => `<span class="keyword">${kw}</span>`).join('');
+            
+            return {
+                title,
+                description,
+                hashtags: hashtagsHTML,
+                keywords: keywordsHTML
+            };
+        }
+        
+        // Generate shorts content
+        function generateShortsContent(topic, tone, details) {
+            const tones = {
+                engaging: {adj: "Engaging", emoji: "⚡"},
+                professional: {adj: "Pro", emoji: "💼"},
+                funny: {adj: "Funny", emoji: "😂"},
+                educational: {adj: "Educational", emoji: "📚"},
+                inspirational: {adj: "Inspiring", emoji: "✨"}
+            };
+            
+            const toneInfo = tones[tone] || tones.engaging;
+            
+            // Generate title
+            const titles = [
+                `${toneInfo.emoji} ${topic} in 60 Seconds!`,
+                `${toneInfo.adj} Tip: ${topic}`,
+                `You're Doing ${topic} Wrong!`,
+                `${topic} Hack You Need to Know`,
+                `Quick ${topic} Tutorial`
+            ];
+            
+            const title = titles[Math.floor(Math.random() * titles.length)];
+            
+            // Generate description
+            const description = `Quick ${toneInfo.adj.toLowerCase()} tip on ${topic}!\n\n👉 Swipe up for more content\n💡 Save this for later\n🔔 Turn on notifications\n\n${details ? `\n🔎 ${details.substring(0, 80)}...\n` : ''}\n#shorts #${topic.replace(/\s+/g, '')} #QuickTip #GrockAI`;
+            
+            // Generate hashtags
+            const hashtags = [
+                "#shorts",
+                "#YouTubeShorts",
+                `#${topic.replace(/\s+/g, '')}`,
+                "#QuickTip",
+                "#LearnFast",
+                "#GrockAI",
+                "#ContentCreation"
+            ];
+            
+            const hashtagsHTML = hashtags.map(tag => `<span class="hashtag">${tag}</span>`).join('');
+            
+            // Generate keywords
+            const keywords = [
+                `${topic} shorts`,
+                `quick ${topic} tutorial`,
+                "YouTube shorts content",
+                "short video ideas",
+                "Grock AI shorts",
+                "viral shorts"
+            ];
+            
+            const keywordsHTML = keywords.map(kw => `<span class="keyword">${kw}</span>`).join('');
+            
+            return {
+                title,
+                description,
+                hashtags: hashtagsHTML,
+                keywords: keywordsHTML
+            };
+        }
+        
+        // Initialize selection functionality
+        function initSelection() {
+            // Add click handlers to hashtags and keywords
+            document.querySelectorAll('.hashtag, .keyword').forEach(item => {
+                item.addEventListener('click', function() {
+                    this.classList.toggle('selected');
+                });
+            });
+            
+            // Setup copy buttons for individual sections
+            document.querySelectorAll('.copy-btn[data-copy]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-copy');
+                    const content = document.getElementById(targetId).textContent;
+                    copyToClipboard(content, `${targetId.replace(/([A-Z])/g, ' $1').replace('video', '').replace('shorts', '')} copied!`);
+                });
+            });
+            
+            // Setup copy buttons for hashtags
+            document.getElementById('copyVideoHashtags').addEventListener('click', function() {
+                copySelectedItems('videoHashtags', 'hashtag', 'hashtags');
+            });
+            
+            document.getElementById('copyShortsHashtags').addEventListener('click', function() {
+                copySelectedItems('shortsHashtags', 'hashtag', 'hashtags');
+            });
+            
+            // Setup copy buttons for keywords
+            document.getElementById('copyVideoKeywords').addEventListener('click', function() {
+                copySelectedItems('videoKeywords', 'keyword', 'keywords');
+            });
+            
+            document.getElementById('copyShortsKeywords').addEventListener('click', function() {
+                copySelectedItems('shortsKeywords', 'keyword', 'keywords');
+            });
+            
+            // Setup select all buttons
+            document.querySelectorAll('.select-all-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const container = document.getElementById(targetId);
+                    const items = container.querySelectorAll('.hashtag, .keyword');
+                    
+                    // Toggle between select all and deselect all
+                    const allSelected = Array.from(items).every(item => item.classList.contains('selected'));
+                    
+                    items.forEach(item => {
+                        if (allSelected) {
+                            item.classList.remove('selected');
+                        } else {
+                            item.classList.add('selected');
+                        }
+                    });
+                });
+            });
+        }
+        
+        // Copy selected hashtags or keywords
+        function copySelectedItems(containerId, itemClass, type) {
+            const container = document.getElementById(containerId);
+            const selectedItems = container.querySelectorAll(`.${itemClass}.selected`);
+            
+            if (selectedItems.length === 0) {
+                const infoElement = document.getElementById(`${containerId}Info`);
+                if (infoElement) {
+                    infoElement.style.display = 'block';
+                    setTimeout(() => {
+                        infoElement.style.display = 'none';
+                    }, 3000);
+                }
+                return;
+            }
+            
+            const itemsText = Array.from(selectedItems).map(item => item.textContent).join(', ');
+            copyToClipboard(itemsText, `${selectedItems.length} ${type} copied!`);
+        }
+        
+        // Copy to clipboard helper
+        function copyToClipboard(text, message) {
+            navigator.clipboard.writeText(text)
+                .then(() => {
+                    showNotification(message);
+                })
+                .catch(err => {
+                    showNotification('Failed to copy: ' + err);
+                });
+        }
+        
+        // Copy all content
+        function copyAllContent(type) {
+            let content = '';
+            
+            if (type === 'video') {
+                content = `Title: ${document.getElementById('videoTitle').textContent}\n\n`;
+                content += `Description:\n${document.getElementById('videoDescription').textContent}\n\n`;
+                content += `Hashtags: ${document.querySelector('#videoHashtags').textContent}\n\n`;
+                content += `Keywords: ${document.querySelector('#videoKeywords').textContent}`;
+            } else {
+                content = `Title: ${document.getElementById('shortsTitle').textContent}\n\n`;
+                content += `Description:\n${document.getElementById('shortsDescription').textContent}\n\n`;
+                content += `Hashtags: ${document.querySelector('#shortsHashtags').textContent}\n\n`;
+                content += `Keywords: ${document.querySelector('#shortsKeywords').textContent}`;
+            }
+            
+            copyToClipboard(content, `All ${type} content copied!`);
+        }
+        
+        // Download content as text file
+        function downloadContent(type) {
+            let content = '';
+            let filename = '';
+            
+            if (type === 'video') {
+                filename = `grock-ai-video-content-${new Date().toISOString().slice(0, 10)}.txt`;
+                content = `YouTube Video Content Generated by Grock AI (grock.fun)\n\n`;
+                content += `Title: ${document.getElementById('videoTitle').textContent}\n\n`;
+                content += `Description:\n${document.getElementById('videoDescription').textContent}\n\n`;
+                content += `Hashtags: ${document.querySelector('#videoHashtags').textContent}\n\n`;
+                content += `Keywords: ${document.querySelector('#videoKeywords').textContent}`;
+            } else {
+                filename = `grock-ai-shorts-content-${new Date().toISOString().slice(0, 10)}.txt`;
+                content = `YouTube Shorts Content Generated by Grock AI (grock.fun)\n\n`;
+                content += `Title: ${document.getElementById('shortsTitle').textContent}\n\n`;
+                content += `Description:\n${document.getElementById('shortsDescription').textContent}\n\n`;
+                content += `Hashtags: ${document.querySelector('#shortsHashtags').textContent}\n\n`;
+                content += `Keywords: ${document.querySelector('#shortsKeywords').textContent}`;
+            }
+            
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('Content downloaded!');
+        }
+        
+        // Show notification
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.querySelector('span').textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            initSelection();
+        });
+    </script>
+</body>
+</html>
